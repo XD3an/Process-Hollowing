@@ -98,7 +98,7 @@ void RunPE(const char* path) {
 int main(int argc, wchar_t* argv[]) {
     /*
         Step
-            1. Create a suspended process
+            1. Create the  suspended process
             2. Read the remote code
             3. Get the suspended process context and the environment information
             4. Unload the suspended process memory

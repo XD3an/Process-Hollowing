@@ -2,5 +2,6 @@
 
 int main() {
     MessageBoxA(NULL, "Hello World!", "info", NULL);
-    return 0;
+    
+	return 0;
 }
