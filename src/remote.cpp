@@ -3,5 +3,5 @@
 int main() {
     MessageBoxA(NULL, "Hello! I'm remote!!", "info", NULL);
     
-	return 0;
+    return 0;
 }
