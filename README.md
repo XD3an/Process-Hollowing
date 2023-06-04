@@ -6,7 +6,7 @@
 
 - Change the PATH of target PE file
     ```cpp
-    char *PATH = "PATH\\TO\\PE";
+    char *PATH = "path\\to\\pe";
     ```
     
 - Compile
